@@ -90,7 +90,7 @@ export const menuSections: Array<{
   },
   {
     id: 'dulce',
-    eyebrow: 'Modo dulce: on',
+    eyebrow: 'Pastelería artesanal',
     title: 'Dulces',
     intro: 'Recién horneados y caprichos para alargar la sobremesa.',
     products: [
@@ -132,48 +132,6 @@ export const menuSections: Array<{
       { name: 'Zumo de piña, melocotón o manzana', price: '2 €' },
       { name: 'Milkshakes', price: '6 €', note: 'varios sabores' },
       { name: 'Smoothies', price: '5 €', note: 'varios sabores' },
-    ],
-  },
-]
-
-export type WeeklyMenu = {
-  id: string
-  label: string
-  start: string
-  end: string
-  price: string
-  days: Array<{ day: string; first: string; second: string; dessert: string }>
-}
-
-export const weeklyMenus: WeeklyMenu[] = [
-  {
-    id: 'semana-1', label: 'Semana 1 · 7 al 11 de septiembre', start: '2026-09-07', end: '2026-09-11', price: '14 €',
-    days: [
-      { day: 'Lunes', first: 'Crema de calabacín y queso crema', second: 'Salmón en salsa de limón con ensalada de hinojo', dessert: 'Fruta fresca o vasito de tarta de galleta' },
-      { day: 'Martes', first: 'Ensalada de hojas verdes, manzana y frutos secos', second: 'Estofado de garbanzo con choco', dessert: 'Fruta fresca o mousse de yogur y frutos rojos' },
-      { day: 'Miércoles', first: 'Salmorejo con guarnición clásica', second: 'Cabecero de lomo a la sal con boniato asado', dessert: 'Fruta fresca o tarta tres leches' },
-      { day: 'Jueves', first: 'Bruschetta de cherry asado, mozzarella y albahaca', second: 'Albóndigas en salsa de amontillado', dessert: 'Fruta fresca o pan perdido de croissant y caramelo' },
-      { day: 'Viernes', first: 'Vermicelli con verduritas al wok', second: 'Pan bao de pulled pork y salsa barbacoa', dessert: 'Fruta fresca o compota de mango con yogur griego' },
-    ],
-  },
-  {
-    id: 'semana-2', label: 'Semana 2 · 14 al 18 de septiembre', start: '2026-09-14', end: '2026-09-18', price: '14 €',
-    days: [
-      { day: 'Lunes', first: 'Salmón en salsa de limón con ensalada de hinojo', second: 'Rigatoni al pomodoro y parmesano', dessert: 'Fruta fresca o dados de cheesecake' },
-      { day: 'Martes', first: 'Estofado de garbanzo con choco', second: 'Quiche Lorraine de espinacas y queso de cabra', dessert: 'Fruta fresca o compota de manzana, chantilly y crumble' },
-      { day: 'Miércoles', first: 'Cabecero de lomo a la sal con boniato asado', second: 'Brandada de bacalao', dessert: 'Fruta fresca o mousse de yogur y frutos rojos' },
-      { day: 'Jueves', first: 'Albóndigas en salsa de amontillado', second: 'Dados de pollo al curry y arroz basmati', dessert: 'Fruta fresca o pop dot de pistacho' },
-      { day: 'Viernes', first: 'Huevos estrellados con chistorra', second: 'Musaka griega', dessert: 'Fruta fresca o vasito de tarta de galleta' },
-    ],
-  },
-  {
-    id: 'semana-3', label: 'Semana 3 · 21 al 25 de septiembre', start: '2026-09-21', end: '2026-09-25', price: '14 €',
-    days: [
-      { day: 'Lunes', first: 'Ñoquis en salsa de tres quesos y nueces', second: 'Lasaña de carne y bechamel de queso', dessert: 'Fruta fresca o vasito de tiramisú' },
-      { day: 'Martes', first: 'Patatas estofadas a la riojana', second: 'Pescado al horno con patatitas', dessert: 'Fruta fresca o pistacho y yogur griego' },
-      { day: 'Miércoles', first: 'Poké bowl de verduras y salmón marinado', second: 'Jamoncitos de pollo en salsa con verdura asada', dessert: 'Fruta fresca o compota de manzana, chantilly y crumble' },
-      { day: 'Jueves', first: 'Dúo de cogollos al estilo César', second: 'Brioche relleno de ensalada de atún y chips de tubérculo', dessert: 'Fruta fresca o lima curd' },
-      { day: 'Viernes', first: 'Gratén de patata trufado', second: 'Fajita de pollo con cheddar', dessert: 'Fruta fresca o pop de pistacho' },
     ],
   },
 ]
