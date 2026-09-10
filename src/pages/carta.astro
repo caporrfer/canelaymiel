@@ -1,0 +1,137 @@
+---
+import { Image } from 'astro:assets'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import menuHero from '../assets/photos/breakfast-board.jpg'
+import eggs from '../assets/photos/hero-eggs.jpg'
+import bakery from '../assets/photos/local-bakery.jpg'
+import { business, menuSections, weeklyMenus } from '../data/site'
+---
+
+<BaseLayout
+  title="La carta · Canela y Miel La Monacilla"
+  description="Consulta la carta de desayunos, brunch, café, dulces y los menús semanales de Canela y Miel La Monacilla."
+  current="carta"
+>
+  <main id="contenido" class="menu-page">
+    <section class="menu-hero">
+      <div>
+        <p class="eyebrow">Desayuna a bocados grandes</p>
+        <h1>Nuestra <em>carta.</em></h1>
+        <p>Elige, mezcla, comparte. Aquí el desayuno se toma muy en serio.</p>
+      </div>
+      <Image src={menuHero} alt="Desayuno con croissant, salmón, aguacate y zumo" widths={[600, 900]} sizes="(max-width: 760px) 100vw, 42vw" loading="eager" />
+    </section>
+
+    <nav class="category-nav" aria-label="Categorías de la carta">
+      <a href="#menu-semanal">Menú semanal</a>
+      {menuSections.map((section) => <a href={`#${section.id}`}>{section.title}</a>)}
+    </nav>
+
+    <section class="weekly section" id="menu-semanal">
+      <div class="weekly-heading">
+        <div>
+          <p class="eyebrow">Comida real · de lunes a viernes</p>
+          <h2>Menú <em>semanal.</em></h2>
+        </div>
+        <div class="price-badge"><span>Menú completo</span><strong>14 €</strong></div>
+      </div>
+      <p class="weekly-empty" data-weekly-empty hidden>
+        Ahora mismo no hay un menú fechado como vigente. Consulta el último en
+        <a href={business.instagramUrl} target="_blank" rel="noreferrer">Instagram</a>.
+      </p>
+      <div class="week-list">
+        {weeklyMenus.map((week) => (
+          <article class="week-card" data-week data-start={week.start} data-end={week.end}>
+            <header>
+              <div><span class="week-state">Programado</span><h3>{week.label}</h3></div>
+              <strong>{week.price}</strong>
+            </header>
+            <div class="day-grid">
+              {week.days.map((day) => (
+                <div class="day-card">
+                  <h4>{day.day}</h4>
+                  <p><span>Primero</span>{day.first}</p>
+                  <p><span>Segundo</span>{day.second}</p>
+                  <p><span>Postre</span>{day.dessert}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="source-note">Menús publicados por el local para septiembre de 2026. La disponibilidad puede cambiar.</p>
+    </section>
+
+    <div class="menu-photo-strip">
+      <Image src={eggs} alt="Huevos poché sobre tostada" widths={[600, 900]} sizes="50vw" />
+      <div><span>POACHED</span><span>& HAPPY</span></div>
+      <Image src={bakery} alt="Mostrador de pan y bollería en Canela y Miel" widths={[600, 900]} sizes="50vw" />
+    </div>
+
+    <section class="menu-sections section">
+      {menuSections.map((section, index) => (
+        <article class="menu-section" id={section.id}>
+          <header>
+            <span class="section-index">0{index + 1}</span>
+            <div><p class="eyebrow">{section.eyebrow}</p><h2>{section.title}</h2><p>{section.intro}</p></div>
+          </header>
+          <div class="product-grid">
+            {section.products.map((product) => (
+              <div class="product-row">
+                <div><strong>{product.name}</strong>{product.note && <small>{product.note}</small>}</div>
+                {product.price && <span class:list={{ supplement: product.price.startsWith('+') }}>{product.price}</span>}
+              </div>
+            ))}
+          </div>
+        </article>
+      ))}
+      <aside class="menu-notice">
+        <strong>¿Alergias o intolerancias?</strong>
+        <p>Pregunta al equipo antes de pedir. Confirma también la disponibilidad y los precios del día.</p>
+      </aside>
+    </section>
+
+    <section class="menu-cta" id="visitanos">
+      <p class="eyebrow">Ahora solo falta probarlo</p>
+      <h2>¿Nos vemos <em>hoy?</em></h2>
+      <p>{business.hours}</p>
+      <div class="button-row">
+        <a class="button button--cream" href={business.mapsUrl} target="_blank" rel="noreferrer">Cómo llegar</a>
+        <a class="button button--outline" href={business.phoneHref}>Llamar al {business.phoneLabel}</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const madridDate = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Europe/Madrid',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date())
+
+    const weeks = Array.from(document.querySelectorAll<HTMLElement>('[data-week]'))
+    let hasCurrent = false
+
+    weeks.forEach((week) => {
+      const start = week.dataset.start ?? ''
+      const end = week.dataset.end ?? ''
+      const state = week.querySelector<HTMLElement>('.week-state')
+      if (!state) return
+
+      if (madridDate >= start && madridDate <= end) {
+        week.classList.add('is-current')
+        state.textContent = 'Esta semana'
+        hasCurrent = true
+      } else if (madridDate > end) {
+        week.classList.add('is-past')
+        state.textContent = 'Menú anterior'
+      } else {
+        state.textContent = 'Próximamente'
+      }
+    })
+
+    const empty = document.querySelector<HTMLElement>('[data-weekly-empty]')
+    if (empty) empty.hidden = hasCurrent
+  </script>
+</BaseLayout>

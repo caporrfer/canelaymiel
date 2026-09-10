@@ -1,0 +1,115 @@
+---
+import { Image } from 'astro:assets'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import heroEggs from '../assets/photos/hero-eggs.jpg'
+import bakery from '../assets/photos/local-bakery.jpg'
+import breakfast from '../assets/photos/breakfast-board.jpg'
+import storefront from '../assets/photos/storefront.jpg'
+import counter from '../assets/photos/counter.jpg'
+import { business, reviews } from '../data/site'
+
+const arrow = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 6l6 6-6 6"/></svg>`
+---
+
+<BaseLayout
+  title="Canela y Miel La Monacilla · Desayunos, brunch y comida"
+  description="Desayunos, brunch, comida, pastelería artesanal y café en La Monacilla, Huelva. Abierto todos los días de 8:00 a 20:00."
+  current="inicio"
+>
+  <main id="contenido">
+    <section class="hero">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Desayunos · Brunch · Comida</p>
+        <h1>La vida,<br /><em>a bocados grandes.</em></h1>
+        <p class="lead">Café, pan recién hecho y platos que hacen que el día empiece mejor.</p>
+        <div class="button-row">
+          <a class="button button--dark" href="/carta/">Ver la carta <Fragment set:html={arrow} /></a>
+          <a class="text-link" href={business.mapsUrl} target="_blank" rel="noreferrer">Cómo llegar <Fragment set:html={arrow} /></a>
+        </div>
+        <div class="open-pill"><span aria-hidden="true"></span>{business.hours}</div>
+      </div>
+      <div class="hero-media reveal reveal--delay">
+        <Image src={heroEggs} alt="Tosta con huevos poché de Canela y Miel" widths={[640, 960, 1280]} sizes="(max-width: 800px) 100vw, 55vw" loading="eager" />
+        <span class="photo-stamp">Poached<br />& happy</span>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div>GOOD FOOD · GOOD MOOD · GOOD LIFE · CANELA Y MIEL · GOOD FOOD · GOOD MOOD · GOOD LIFE ·</div>
+    </div>
+
+    <section class="section intro-block">
+      <div class="section-title">
+        <p class="eyebrow">Aquí se viene a disfrutar</p>
+        <h2>¿Qué te apetece <em>hoy?</em></h2>
+      </div>
+      <div class="feature-grid">
+        <a class="feature-card feature-card--photo" href="/carta/#huevos">
+          <Image src={breakfast} alt="Croissant, tostada con salmón y zumo" widths={[520, 760]} sizes="(max-width: 740px) 100vw, 33vw" />
+          <div><span>01</span><h3>Desayunos<br />& brunch</h3><p>Dulces, salados y sin prisas.</p></div>
+        </a>
+        <a class="feature-card feature-card--red" href="/carta/#dulce">
+          <span class="doodle" aria-hidden="true">✦</span>
+          <div><span>02</span><h3>Modo dulce:<br />ON</h3><p>Pastelería artesanal y caprichos recién hechos.</p></div>
+        </a>
+        <a class="feature-card feature-card--cream" href="/carta/#menu-semanal">
+          <span class="stamp">14 €</span>
+          <div><span>03</span><h3>Menú<br />semanal</h3><p>Comida real. Cada semana, algo nuevo.</p></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="story section">
+      <div class="story-grid">
+        <figure class="story-image story-image--large">
+          <Image src={bakery} alt="Interior de Canela y Miel con pan recién horneado" widths={[720, 1080]} sizes="(max-width: 800px) 100vw, 52vw" />
+        </figure>
+        <div class="story-copy">
+          <p class="eyebrow">Bread and cositas</p>
+          <h2>Crujiente por fuera.<br /><em>Felicidad por dentro.</em></h2>
+          <p>Un rincón con olor a café y pan recién hecho, pensado para quedarse un rato más.</p>
+          <a class="text-link" href={business.instagramUrl} target="_blank" rel="noreferrer">Ver Instagram <Fragment set:html={arrow} /></a>
+        </div>
+        <figure class="story-image story-image--small">
+          <Image src={counter} alt="Una clienta disfrutando de una bebida en la barra de Canela y Miel" widths={[480, 720]} sizes="(max-width: 800px) 72vw, 30vw" />
+        </figure>
+        <figure class="story-image story-image--sign">
+          <Image src={storefront} alt="Rótulo exterior de Canela y Miel La Monacilla" widths={[400, 640]} sizes="(max-width: 800px) 44vw, 22vw" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="reviews section">
+      <div class="section-title section-title--center">
+        <p class="eyebrow">Dicen por Google</p>
+        <h2>Qué bien se está <em>aquí.</em></h2>
+      </div>
+      <div class="review-grid">
+        {reviews.map((review) => (
+          <a class="review-card" href={review.url} target="_blank" rel="noreferrer">
+            <span class="stars" aria-label="Cinco estrellas">★★★★★</span>
+            <blockquote>“{review.quote}”</blockquote>
+            <cite>{review.author} · Google</cite>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="visit" id="visitanos">
+      <div class="visit-pattern" aria-hidden="true"><span>CANELA</span><span>Y MIEL</span></div>
+      <div class="visit-card">
+        <p class="eyebrow">Te esperamos</p>
+        <h2>Ven a vernos<br /><em>en La Monacilla.</em></h2>
+        <div class="visit-details">
+          <p><strong>Dirección</strong>{business.address}</p>
+          <p><strong>Horario</strong>{business.hours}</p>
+          <p><strong>Teléfono</strong><a href={business.phoneHref}>{business.phoneLabel}</a></p>
+        </div>
+        <div class="button-row">
+          <a class="button button--cream" href={business.mapsUrl} target="_blank" rel="noreferrer">Cómo llegar <Fragment set:html={arrow} /></a>
+          <a class="text-link text-link--light" href={business.instagramUrl} target="_blank" rel="noreferrer">Instagram <Fragment set:html={arrow} /></a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
